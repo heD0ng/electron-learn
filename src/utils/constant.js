@@ -10,4 +10,4 @@ export const DESIGN_ARC_BALL = 80
 export const BASE_WIN_WIDTH = 1920 // 标准分辨率宽
 export const BASE_WIN_HEIGHT = 1200 // 标准分辨率高
 
-export const VIDEO_PATH = 'd:/laowan'
+export const VIDEO_PATH = 'd:/videoList'

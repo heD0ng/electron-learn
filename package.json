@@ -16,6 +16,7 @@
     "@electron/remote": "^2.0.8",
     "core-js": "^3.6.5",
     "electron": "^18.0.3",
+    "moment": "^2.29.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },

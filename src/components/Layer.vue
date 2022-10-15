@@ -1,78 +1,79 @@
+<template>
+    <div class="layer-wrapper">
+        <div class="drag-header" v-mouse-drag="handleDrag">
+            <div class="header-content">
+                <div class="header-logo">
+                    <i class="icon"></i>
+                    <p class="title">{{title}}</p>
+                </div>
+                <div class="header-operate">
+                    <div class="btn-box" @click="minWin">
+                        <i class="icon min"></i>
+                    </div>
+                    <div class="btn-box" @click="maxWin">
+                        <i :class="['icon',isMax ? 'reset' : 'max']"></i>
+                    </div>
+                    <div class="btn-box" @click="closeWin">
+                        <i class="icon close"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layer-container">
+            <div class="page-content">
+                <slot></slot>
+            </div>
+        </div>
+    </div>
+</template>
 <script>
 import { ref } from 'vue'
 const { ipcRenderer } = window.require('electron')
 export default {
-  name:'Layer',
-  props:{
-    pageTitle:{
-      type:String,
-      default:'老万录屏'
-    }
-  },
-  setup(){
-    const handleDrag = (pos) => {
-      ipcRenderer.send('move-main', {
-        baseX: pos.x,
-        baseY: pos.y
-      })
-    }
-    // 最小化
-    const minWin = function () {
-      ipcRenderer.send('mainWin:minimize')
-    }
-    // 最大化
-    const isMax = ref(false)
-    const maxWin = function () {
-      if (isMax.value) {
-        ipcRenderer.send('mainWin:restore')
-      } else {
-        ipcRenderer.send('mainWin:maximize')
-      }
-      isMax.value = !isMax.value
-    }
-    // 关闭
-    const closeWin = function () {
-      ipcRenderer.send('mainWin:close')
-    }
+    name:'Layer',
+    props:{
+        title:{
+            type:String,
+            default:'录屏软件'
+        }
+    },
+    setup(){
+        const handleDrag = (pos) => {
+            ipcRenderer.send('move-main', {
+                baseX: pos.x,
+                baseY: pos.y
+            })
+        }
+        // 最小化
+        const minWin = function () {
+            ipcRenderer.send('mainWin:minimize')
+        }
+        // 最大化
+        const isMax = ref(false)
+        const maxWin = function () {
+            if (isMax.value) {
+                ipcRenderer.send('mainWin:restore')
+            } else {
+                ipcRenderer.send('mainWin:maximize')
+            }
+            isMax.value = !isMax.value
+        }
+        // 关闭
+        const closeWin = function () {
+            ipcRenderer.send('mainWin:close')
+        }
 
-    return {
-      isMax,
-      handleDrag,
-      minWin,
-      maxWin,
-      closeWin
+        return {
+            isMax,
+            handleDrag,
+            minWin,
+            maxWin,
+            closeWin
+        }
     }
-  }
 }
 </script>
-<template>
-<div class="layer-wrapper">
-  <div class="drag-header" v-mouse-drag="handleDrag">
-    <div class="header-content">
-      <div class="header-logo">
-        <i class="icon"></i>
-        <p class="title">{{pageTitle}}</p>
-      </div>
-      <div class="header-operate">
-          <div class="btn-box" @click="minWin">
-            <i class="icon min"></i>
-          </div>
-          <div class="btn-box" @click="maxWin">
-            <i :class="['icon',isMax ? 'reset' : 'max']"></i>
-          </div>
-          <div class="btn-box" @click="closeWin">
-            <i class="icon close"></i>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="layer-container">
-    <div class="page-content">
-      <slot></slot>
-    </div>
-  </div>
-</div>
-</template>
+
 <style lang="scss" scoped>
 .layer-wrapper{
   width:100%;
