@@ -11,8 +11,8 @@ class TrayBox extends events {
         super()
         // 创建托盘
         tray = new Tray(iconPath)
-        tray.setToolTip('老万录屏')
-            tray.on('click', () => {
+        tray.setToolTip('录屏软件')
+        tray.on('click', () => {
             mp && mp.show()
         })
         // 右键点击图标时，出现的菜单
@@ -21,9 +21,7 @@ class TrayBox extends events {
                 {
                     label: '退出',
                     click: () => {
-                        setTimeout(() => {
                         this.closeAllWindows()
-                        }, 2000)
                     }
                 }
             ])
@@ -38,9 +36,9 @@ class TrayBox extends events {
         try {
             if (allwindow.length) {
                 for (let i = 0; i < allwindow.length; i++) {
-                if (allwindow[i] && allwindow[i].isVisible()) {
-                    allwindow[i].close()
-                }
+                    if (allwindow[i] && allwindow[i].isVisible()) {
+                        allwindow[i].close()
+                    }
                 }
                 app.quit()
             } else {

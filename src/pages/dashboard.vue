@@ -3,30 +3,32 @@
         <div class="home-content">
         <div class="container">
             <div class="screen-record">
-            <div class="record-operate">
-                <div class="button" @click="recordPlay">
-                <p class="start">{{isRecord ? '结束' : '录屏'}}</p>
+                <div class="record-operate">
+                    <div class="button" @click="recordPlay">
+                        <p class="start">{{isRecord ? '结束' : '录屏'}}</p>
+                    </div>
+                    <div class="time-box">
+                        <p class="time">
+                            {{timeFormat(timestamp)}}
+                        </p>
+                    </div>
                 </div>
-                <div class="time-box">
-                <p class="time">{{timeFormat(timestamp)}}</p>
+                <div class="list-box">
+                    <div class="video-list">
+                        <div class="video-item" v-for="item in files" :key="item">
+                            <p class="item-opt name">{{item}}</p>
+                            <p class="item-opt play" @click="handlePlay(item)">播放</p>
+                            <p class="item-opt play" @click="handleOpenDir(item)">打开文件目录</p>
+                            <p></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="list-box">
-                <div class="video-list">
-                <div class="video-item" v-for="item in files" :key="item">
-                    <p class="item-opt name">{{item}}</p>
-                    <p class="item-opt play" @click="handlePlay(item)">播放</p>
-                    <p class="item-opt play" @click="handleOpenDir(item)">打开文件目录</p>
-                    <p></p>
-                </div>
-                </div>
-            </div>
             </div>
             <div class="screen-preview">
-            <div class="img">
-                <img :src="previewImg" v-if="videoUrl === ''">
-                <video :src="`http://localhost:9000/${videoUrl}`" controls v-else></video>
-            </div>
+                <div class="img">
+                    <img :src="previewImg" v-if="videoUrl === ''">
+                    <video :src="`http://localhost:9000/${videoUrl}`" controls v-else></video>
+                </div>
             </div>
         </div>
         </div>
